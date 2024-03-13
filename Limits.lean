@@ -4,7 +4,8 @@ import Mathlib.Data.Real.Basic
 def Function.tendsTo (s : ℕ → ℝ) (l : ℝ) : Prop :=
   ∀ ε > 0, ∃ N : ℕ, ∀ n ≥ N, |s n - l| < ε
 
-lemma add_convergesTo {u v : ℕ → ℝ} {a b : ℝ}
+@[simp]
+lemma seq_add_tendsTo {u v : ℕ → ℝ} {a b : ℝ}
     (hu : u.tendsTo a) (hv : v.tendsTo b) :
     (u + v).tendsTo (a + b) := by
   intro ε epp
@@ -23,8 +24,4 @@ lemma add_convergesTo {u v : ℕ → ℝ} {a b : ℝ}
 example {u v w : ℕ → ℝ} {a b c : ℝ}
     (hu : u.tendsTo a) (hv : v.tendsTo b) (hw : w.tendsTo c) :
     (u + v + w).tendsTo (a + b + c) := by
-  apply add_convergesTo
-  apply add_convergesTo
-  exact hu
-  exact hv
-  exact hw
+  aesop
