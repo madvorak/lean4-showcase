@@ -1,12 +1,12 @@
 import Mathlib.Data.Real.Basic
 
 
-def Function.convergesTo (s : ℕ → ℝ) (l : ℝ) : Prop :=
+def Function.tendsTo (s : ℕ → ℝ) (l : ℝ) : Prop :=
   ∀ ε > 0, ∃ N : ℕ, ∀ n ≥ N, |s n - l| < ε
 
 lemma add_convergesTo {u v : ℕ → ℝ} {a b : ℝ}
-    (hu : u.convergesTo a) (hv : v.convergesTo b) :
-    (u + v).convergesTo (a + b) := by
+    (hu : u.tendsTo a) (hv : v.tendsTo b) :
+    (u + v).tendsTo (a + b) := by
   intro ε epp
   obtain ⟨Nᵤ, ha⟩ := hu (ε / 2) (half_pos epp)
   obtain ⟨Nᵥ, hb⟩ := hv (ε / 2) (half_pos epp)
@@ -21,8 +21,8 @@ lemma add_convergesTo {u v : ℕ → ℝ} {a b : ℝ}
   _ = ε                       := add_halves ε
 
 example {u v w : ℕ → ℝ} {a b c : ℝ}
-    (hu : u.convergesTo a) (hv : v.convergesTo b) (hw : w.convergesTo c) :
-    (u + v + w).convergesTo (a + b + c) := by
+    (hu : u.tendsTo a) (hv : v.tendsTo b) (hw : w.tendsTo c) :
+    (u + v + w).tendsTo (a + b + c) := by
   apply add_convergesTo
   apply add_convergesTo
   exact hu
